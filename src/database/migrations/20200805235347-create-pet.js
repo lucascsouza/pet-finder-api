@@ -55,11 +55,6 @@ module.exports = {
   },
 
   down: async () => {
-    /**
-     * Add reverting commands here.
-     *
-     * Example:
-     * await queryInterface.dropTable('users');
-     */
+    return queryInterface.dropTable('pets');
   },
 };

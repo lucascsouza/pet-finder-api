@@ -1,10 +1,12 @@
+require('dotenv').config();
+
 export default {
-  host: 'smtp.mailtrap.io',
-  port: '2525',
-  secure: false,
+  host: process.env.SMTP_HOST,
+  port: process.env.SMTP_PORT,
+  secure: process.env.SMPT_SECURE || false,
   auth: {
-    user: 'bb4bf52e94c7fe',
-    pass: 'c2b5b1e1152ab1',
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASSWORD,
   },
   default: {
     from: 'Pet Finder <noreply@petfinder.com',

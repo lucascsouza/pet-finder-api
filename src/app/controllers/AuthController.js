@@ -1,6 +1,3 @@
-import jwt from 'jsonwebtoken';
-import authConfig from '../../config/auth';
-
 import User from '../models/User';
 
 class AuthController {
@@ -20,7 +17,7 @@ class AuthController {
     if (!checkPassword) {
       return res
         .status(401)
-        .json({ error: 'Invalid Email and Password Combination' });
+        .json({ error: 'Invalid Email and Password Combination 2' });
     }
 
     const { id, name } = user;
@@ -31,9 +28,7 @@ class AuthController {
         name,
         email,
       },
-      token: jwt.sign({ id }, authConfig.secret, {
-        expiresIn: authConfig.expiresIn,
-      }),
+      token: user.generateToken(),
     });
   }
 }

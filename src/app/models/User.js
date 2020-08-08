@@ -1,5 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 class User extends Model {
   static init(sequelize) {
@@ -13,10 +14,13 @@ class User extends Model {
         state: Sequelize.STRING,
         password: Sequelize.VIRTUAL,
         password_hash: Sequelize.STRING,
+        created_at: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
+        updated_at: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
       },
       {
         sequelize,
         paranoid: true,
+        timeStamps: true,
       }
     );
 
@@ -31,6 +35,12 @@ class User extends Model {
 
   checkPassword(password) {
     return bcrypt.compare(password, this.password_hash);
+  }
+
+  generateToken() {
+    return jwt.sign({ id: this.id }, process.env.APP_SECRET, {
+      expiresIn: process.env.EXPIRES_IN,
+    });
   }
 }
 

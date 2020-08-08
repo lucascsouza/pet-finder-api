@@ -10,18 +10,14 @@ class Pet extends Model {
         weight: Sequelize.DECIMAL(10, 2),
         type: Sequelize.ENUM('Gato', 'Cachorro'),
         city: Sequelize.STRING,
-        owner_user_id: Sequelize.INTEGER,
+        created_at: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
       },
       {
         sequelize,
         paranoid: true,
+        timestamps: true,
       }
     );
-
-    this.addHook('beforeSave', async (pet) => {
-      pet.owner_user_id = 4;
-    });
-
     return this;
   }
 

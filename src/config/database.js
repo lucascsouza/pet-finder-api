@@ -1,11 +1,14 @@
+require('../bootstrap');
+
 module.exports = {
-  dialect: 'postgres',
-  host: 'localhost',
-  username: 'postgres',
-  password: 'docker',
-  database: 'petfinder',
+  dialect: process.env.DB_DIALECT || 'postgres',
+  host: process.env.DB_HOST,
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  storage: './__tests__/database.sqlite',
   define: {
-    timestamps: true,
+    timestamps: false,
     underscored: true,
     underscoredAll: true,
   },
